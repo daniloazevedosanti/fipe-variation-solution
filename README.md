@@ -56,6 +56,7 @@ http://localhost:8080
 ```
 
 Swagger/OpenAPI local:
+![Imagem Doc Swagger](./docs/swagger1.png)
 
 ```text
 http://localhost:8080/swagger-ui/index.html
