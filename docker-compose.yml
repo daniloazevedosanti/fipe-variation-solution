@@ -1,0 +1,9 @@
+services:
+  backend:
+    build: ./backend-fipe-variation
+    container_name: fipe-variation-service
+    ports:
+      - "8080:8080"
+    environment:
+      FIPE_SUBSCRIPTION_TOKEN: ""
+      APP_CORS_ALLOWED_ORIGINS: "http://localhost:4200"

@@ -1,0 +1,94 @@
+<main class="page">
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Teste técnico FIPE</p>
+      <h1>Variação de valor por ano de fabricação</h1>
+      <p class="description">
+        Selecione o tipo, marca e modelo. A aplicação consulta o microsserviço Java,
+        que consolida os preços FIPE e calcula a diferença em valor e percentual entre os anos.
+      </p>
+    </div>
+  </section>
+
+  <section class="card">
+    <form [formGroup]="form" (ngSubmit)="search()" class="form-grid">
+      <label>
+        Tipo de veículo
+        <select formControlName="vehicleType">
+          <option *ngFor="let type of vehicleTypes()" [value]="type.code">{{ type.description }}</option>
+        </select>
+      </label>
+
+      <label>
+        Referência FIPE <small>(opcional)</small>
+        <input type="number" min="1" placeholder="Ex.: 278" formControlName="reference" (change)="reloadBrands()" />
+      </label>
+
+      <label>
+        Marca
+        <select formControlName="brandId">
+          <option value="">Selecione uma marca</option>
+          <option *ngFor="let brand of brands()" [value]="brand.code">{{ brand.name }}</option>
+        </select>
+      </label>
+
+      <label>
+        Modelo
+        <select formControlName="modelId" [disabled]="models().length === 0">
+          <option value="">Selecione um modelo</option>
+          <option *ngFor="let model of models()" [value]="model.code">{{ model.name }}</option>
+        </select>
+      </label>
+
+      <button type="submit" [disabled]="loading() || form.invalid">
+        {{ loading() ? 'Consultando...' : 'Consultar variação' }}
+      </button>
+    </form>
+
+    <p class="error" *ngIf="errorMessage()">{{ errorMessage() }}</p>
+  </section>
+
+  <section class="card result" *ngIf="hasResult()">
+    <div class="result-header">
+      <div>
+        <h2>Resultado</h2>
+        <p>Gerado em {{ result()?.generatedAt | date:'dd/MM/yyyy HH:mm:ss' }}</p>
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Ano</th>
+            <th>Modelo</th>
+            <th>Combustível</th>
+            <th>Código FIPE</th>
+            <th>Valor</th>
+            <th>Alteração</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of result()?.items">
+            <td>{{ item.modelYear }}</td>
+            <td>{{ item.model }}</td>
+            <td>{{ item.fuel }}</td>
+            <td>{{ item.codeFipe }}</td>
+            <td>{{ item.price }}</td>
+            <td [class.positive]="(item.changeValue ?? 0) > 0" [class.negative]="(item.changeValue ?? 0) < 0">
+              <ng-container *ngIf="item.changeValue !== null; else noChange">
+                {{ item.changeValueFormatted }} em relação a {{ item.comparedWithYear }}
+              </ng-container>
+            </td>
+            <td [class.positive]="(item.changePercent ?? 0) > 0" [class.negative]="(item.changePercent ?? 0) < 0">
+              {{ item.changePercent !== null ? (item.changePercent | number:'1.2-2') + '%' : '-' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<ng-template #noChange>-</ng-template>

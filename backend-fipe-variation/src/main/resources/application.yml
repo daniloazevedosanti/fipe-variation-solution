@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: fipe-variation-service
+  cache:
+    type: caffeine
+    caffeine:
+      spec: maximumSize=2000,expireAfterWrite=12h
+
+fipe:
+  base-url: https://fipe.parallelum.com.br/api/v2
+  subscription-token: ${FIPE_SUBSCRIPTION_TOKEN:}
+  connect-timeout-ms: 3000
+  read-timeout-ms: 10000
+
+app:
+  cors:
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:4200}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when_authorized
