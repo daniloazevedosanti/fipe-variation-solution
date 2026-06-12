@@ -171,15 +171,24 @@ Pré-requisitos:
 
 ```bash
 cd frontend-fipe-variation
-npm install
+npm install 
 npm start
 ```
 
+- caso informe a falta de 'package-lock.json'
+```bash
+cd frontend-fipe-variation
+npm install --no-audit --fund=false ou npm install --package-lock-only --no-audit --fund=false ou npm install --include=dev --no-audit --fund=false
+npm start
+```
 A aplicação abre em:
 
 ```text
 http://localhost:4200
 ```
+
+![Imagem tela front inicial](./docs/front1.png)
+
 
 O `proxy.conf.json` direciona `/api` para `http://localhost:8080`, evitando problema de CORS durante o desenvolvimento.
 
