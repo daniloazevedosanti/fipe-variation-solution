@@ -199,7 +199,7 @@ O `proxy.conf.json` direciona `/api` para `http://localhost:8080`, evitando prob
 
 Desenvolvedor / Engenheiro de Software
 
-- GitHub: [@seu-usuario](https://github.com/seu-usuario)
-- LinkedIn: [Danilo Azevedo](https://www.linkedin.com/in/seu-perfil)
+- GitHub: [@seu-usuario](https://github.com/daniloazevedosanti)
+- LinkedIn: [Danilo Azevedo](https://www.linkedin.com/in/dansantosaz)
 - E-mail: danilo.azevedosanti@gmail.com
 
